@@ -12,11 +12,11 @@ lilpinger is a small site pinging tool I wrote to notify me via SMS and email if
 ## Configuration
 All configuration is handled inside lilpinger.toml. The following params can be set:
 
-- **PingInterval**: How often to ping each url, in seconds
-- **LagThreshold**: If response time is slower than this, send alert (in seconds)    
-- **URLsFile**: Path to a text file of URLs to ping. Each URL needs to be on a new line. File path can be a relative our absolute reference.  
-- **Twilio**: Credentials for SMS notifications via Twilio
-- **SMTP**: Credentials for email account to send notifications from
+- **PingInterval**: How often to ping each url, in seconds.
+- **LagThreshold**: If response time is slower than this, send alert (in seconds).   
+- **URLsFile**: Path to a text file of URLs to ping. Each URL needs to be on a new line. The file path can be a relative or absolute reference.  
+- **Twilio**: Credentials for SMS notifications via Twilio.
+- **SMTP**: Credentials for email account to send notifications from.
 - **Notify**: Mobile phones and emails to notify on ping errors or slow responses.
 
 ## Runing lilpinger

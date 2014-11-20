@@ -10,7 +10,7 @@ import (
 
 func SendMail(msg string) {
 	if config.Params.SMTP.Email == "" || config.Params.SMTP.Password == "" || config.Params.SMTP.Server == "" || config.Params.SMTP.Port == "" {
-		log.Println("SMTP creds not set")
+		log.Println("SMTP creds not set, trying to send it anyway")
 	}
 
 	auth := smtp.PlainAuth(

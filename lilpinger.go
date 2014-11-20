@@ -50,13 +50,17 @@ func ping(url string) {
 		res, err := http.Get(url)
 
 		if err != nil {
+
 			msg := "Error:" + err.Error()
 
 			fmt.Println(msg)
 
 			c <- msg
 			reportError(msg)
+
 		} else {
+
+		        defer res.Body.Close()
 			lag := time.Since(start)
 			var msg string
 
@@ -70,7 +74,6 @@ func ping(url string) {
 			c <- msg
 		}
 
-		res.Body.Close()
 		time.Sleep(time.Duration(config.Params.PingInterval) * time.Second)
 	}
 }

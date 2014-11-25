@@ -9,8 +9,11 @@ import (
 )
 
 func SendMail(msg string) {
+	var err error
+
 	if config.Params.SMTP.Email == "" || config.Params.SMTP.Password == "" || config.Params.SMTP.Server == "" || config.Params.SMTP.Port == "" {
-		log.Println("SMTP creds not set")
+		log.Println("SMTP creds not set. skipping email notification")
+		return
 	}
 
 	auth := smtp.PlainAuth(
@@ -21,7 +24,7 @@ func SendMail(msg string) {
 	)
 
 	server := fmt.Sprintf("%v:%v", config.Params.SMTP.Server, config.Params.SMTP.Port)
-	err := smtp.SendMail(
+	err = smtp.SendMail(
 		server,
 		auth,
 		config.Params.SMTP.Email,
@@ -30,6 +33,6 @@ func SendMail(msg string) {
 	)
 
 	if err != nil {
-		fmt.Println("Error sending mail - %v - message: ", err, msg)
+		log.Printf("error sending mail: %v. message: %v\n", err, msg)
 	}
 }

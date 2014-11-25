@@ -10,7 +10,7 @@ import (
 
 func SendSMS(msg string) {
 	if config.Params.Twilio.AccountSid == "" || config.Params.Twilio.AuthToken == "" {
-		log.Println("twilio creds not set")
+		log.Println("twilio creds not set. skipping SMS notification")
 		return
 	}
 

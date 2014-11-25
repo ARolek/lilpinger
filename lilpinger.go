@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,6 +16,8 @@ var (
 )
 
 func main() {
+	var err error
+
 	//	read our text file of urls
 	fileData, err := ioutil.ReadFile(config.Params.URLsFile)
 	if err != nil {
@@ -36,7 +37,7 @@ func main() {
 
 	//	output logs to the terminal
 	for i := range c {
-		fmt.Println(i)
+		log.Println(i)
 	}
 }
 
@@ -48,11 +49,8 @@ func ping(url string) {
 
 		//	make our request
 		res, err := http.Get(url)
-
 		if err != nil {
 			msg := "Error:" + err.Error()
-
-			fmt.Println(msg)
 
 			c <- msg
 			reportError(msg)
@@ -68,9 +66,10 @@ func ping(url string) {
 
 			msg = url + ", lag: " + lag.String()
 			c <- msg
+
+			res.Body.Close()
 		}
 
-		res.Body.Close()
 		time.Sleep(time.Duration(config.Params.PingInterval) * time.Second)
 	}
 }
